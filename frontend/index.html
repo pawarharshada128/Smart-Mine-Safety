@@ -4,111 +4,328 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Mine Safety Helmet</title>
+    <title>Smart Mine Safety | Control Center</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
-    <header class="header">
-        <div>
-            <h1>⛑ Smart Mine Safety</h1>
-            <p>Worker Monitoring Dashboard</p>
-        </div>
-        <div class="connection">
-            <span class="dot"></span>
-            <span id="connection">Connecting...</span>
-        </div>
-    </header>
+<div class="app">
 
-    <main class="container">
-
-        <section class="welcome">
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">⛑</div>
             <div>
-                <h2>Safety Monitoring Dashboard</h2>
-                <p>Live monitoring of mine worker conditions</p>
+                <h2>MineGuard</h2>
+                <small>SAFETY CONTROL</small>
             </div>
-            <div class="mode" id="mode">SIMULATION MODE</div>
-        </section>
+        </div>
 
-        <section id="alertBox" class="alert hidden">
-            ⚠ EMERGENCY ALERT DETECTED!
-        </section>
+        <p class="menu-label">MAIN MENU</p>
 
-        <section class="cards">
+        <nav>
+            <button class="nav-btn active" data-page="dashboard">
+                <span>▦</span> Dashboard
+            </button>
+            <button class="nav-btn" data-page="monitoring">
+                <span>◉</span> Live Monitoring
+            </button>
+            <button class="nav-btn" data-page="history">
+                <span>◷</span> Sensor History
+            </button>
+        </nav>
 
-            <div class="card">
-                <div class="card-icon">🌡️</div>
-                <h3>Temperature</h3>
-                <p class="value"><span id="temperature">--</span> <small>°C</small></p>
-                <p class="description">Worker environment</p>
-            </div>
-
-            <div class="card">
-                <div class="card-icon">💧</div>
-                <h3>Humidity</h3>
-                <p class="value"><span id="humidity">--</span> <small>%</small></p>
-                <p class="description">Air humidity</p>
-            </div>
-
-            <div class="card">
-                <div class="card-icon">☁️</div>
-                <h3>Gas Level</h3>
-                <p class="value" id="gas">--</p>
-                <p class="description">MQ sensor raw reading</p>
-            </div>
-
-            <div class="card">
-                <div class="card-icon">🔥</div>
-                <h3>Flame Sensor</h3>
-                <p class="value" id="flame">--</p>
-                <p class="description">Flame detection status</p>
-            </div>
-
-            <div class="card">
-                <div class="card-icon">🆘</div>
-                <h3>SOS Button</h3>
-                <p class="value" id="sos">--</p>
-                <p class="description">Worker emergency button</p>
-            </div>
-
-            <div class="card">
-                <div class="card-icon">📳</div>
-                <h3>Acceleration</h3>
-                <p class="value"><span id="acceleration">--</span></p>
-                <p class="description">m/s²</p>
-            </div>
-
-        </section>
-
-        <section class="status-section">
-            <div class="panel">
-                <h3>Worker Safety Status</h3>
-                <div id="safetyStatus" class="status normal">
-                    SYSTEM NORMAL
+        <div class="sidebar-bottom">
+            <div class="system-card">
+                <span class="system-dot"></span>
+                <div>
+                    <strong>Cloud System</strong>
+                    <small id="sidebarConnection">Connecting...</small>
                 </div>
-                <p id="lastUpdate">Waiting for sensor data...</p>
+            </div>
+            <small class="version">Smart Mine Safety v1.0</small>
+        </div>
+    </aside>
+
+    <main class="main">
+
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">MINE SAFETY MANAGEMENT</p>
+                <h1 id="pageTitle">Dashboard Overview</h1>
+            </div>
+
+            <div class="top-actions">
+                <span class="connection-pill" id="connectionPill">
+                    <span class="dot"></span>
+                    <span id="connection">Connecting...</span>
+                </span>
+                <button class="icon-btn" id="refreshBtn" title="Refresh data">↻</button>
+            </div>
+        </header>
+
+        <section class="page active" id="dashboard">
+
+            <div class="welcome">
+                <div>
+                    <span class="welcome-tag">LIVE SAFETY SYSTEM</span>
+                    <h2>Worker Monitoring Center</h2>
+                    <p>Monitor mine worker conditions and helmet sensor readings.</p>
+                </div>
+                <div class="mode" id="mode">SIMULATION MODE</div>
+            </div>
+
+            <section id="alertBox" class="alert hidden">
+                <div class="alert-symbol">⚠</div>
+                <div>
+                    <strong>EMERGENCY ALERT DETECTED</strong>
+                    <p>Unsafe conditions detected. Immediate attention required.</p>
+                </div>
+                <span class="alert-status">CRITICAL</span>
+            </section>
+
+            <div class="section-heading">
+                <div>
+                    <h3>Live Sensor Readings</h3>
+                    <p>Real-time data from the safety helmet</p>
+                </div>
+                <span class="live-label"><span></span> LIVE</span>
+            </div>
+
+            <section class="cards">
+
+                <article class="sensor-card">
+                    <div class="card-top">
+                        <div class="sensor-icon temperature-icon">🌡</div>
+                        <span class="card-indicator" id="temperatureIndicator">● Normal</span>
+                    </div>
+                    <p class="sensor-name">Temperature</p>
+                    <div class="sensor-value"><span id="temperature">--</span><small>°C</small></div>
+                    <p class="sensor-description">Environment temperature</p>
+                </article>
+
+                <article class="sensor-card">
+                    <div class="card-top">
+                        <div class="sensor-icon humidity-icon">💧</div>
+                        <span class="card-indicator" id="humidityIndicator">● Normal</span>
+                    </div>
+                    <p class="sensor-name">Humidity</p>
+                    <div class="sensor-value"><span id="humidity">--</span><small>%</small></div>
+                    <p class="sensor-description">Air moisture level</p>
+                </article>
+
+                <article class="sensor-card">
+                    <div class="card-top">
+                        <div class="sensor-icon gas-icon">☁</div>
+                        <span class="card-indicator" id="gasIndicator">● Normal</span>
+                    </div>
+                    <p class="sensor-name">Gas Level</p>
+                    <div class="sensor-value"><span id="gas">--</span><small>RAW</small></div>
+                    <p class="sensor-description">MQ sensor raw reading</p>
+                </article>
+
+                <article class="sensor-card">
+                    <div class="card-top">
+                        <div class="sensor-icon flame-icon">🔥</div>
+                        <span class="card-indicator" id="flameIndicator">● Normal</span>
+                    </div>
+                    <p class="sensor-name">Flame Sensor</p>
+                    <div class="sensor-value text-value" id="flame">--</div>
+                    <p class="sensor-description">Fire detection status</p>
+                </article>
+
+                <article class="sensor-card">
+                    <div class="card-top">
+                        <div class="sensor-icon sos-icon">🆘</div>
+                        <span class="card-indicator" id="sosIndicator">● Normal</span>
+                    </div>
+                    <p class="sensor-name">SOS Button</p>
+                    <div class="sensor-value text-value" id="sos">--</div>
+                    <p class="sensor-description">Worker emergency button</p>
+                </article>
+
+                <article class="sensor-card">
+                    <div class="card-top">
+                        <div class="sensor-icon acceleration-icon">📳</div>
+                        <span class="card-indicator">● Monitoring</span>
+                    </div>
+                    <p class="sensor-name">Acceleration</p>
+                    <div class="sensor-value"><span id="acceleration">--</span><small>m/s²</small></div>
+                    <p class="sensor-description">Helmet movement sensor</p>
+                </article>
+
+            </section>
+
+            <section class="overview-grid">
+
+                <div class="panel safety-panel">
+                    <div class="panel-heading">
+                        <div>
+                            <h3>Worker Safety Status</h3>
+                            <p>Overall helmet condition</p>
+                        </div>
+                        <span class="panel-icon">🛡</span>
+                    </div>
+
+                    <div id="safetyStatus" class="status normal">
+                        <span class="status-circle"></span>
+                        SYSTEM NORMAL
+                    </div>
+
+                    <p class="update-time" id="lastUpdate">Waiting for sensor data...</p>
+
+                    <div class="safety-details">
+                        <div><span>Helmet ID</span><strong>HELMET_01</strong></div>
+                        <div><span>Operating Mode</span><strong id="workerMode">Simulation</strong></div>
+                        <div><span>Connection</span><strong id="workerConnection">Checking...</strong></div>
+                    </div>
+                </div>
+
+                <div class="panel gps-panel">
+                    <div class="panel-heading">
+                        <div>
+                            <h3>Worker GPS Location</h3>
+                            <p>Helmet location information</p>
+                        </div>
+                        <span class="panel-icon">📍</span>
+                    </div>
+
+                    <div class="gps-coordinates">
+                        <div>
+                            <span>LATITUDE</span>
+                            <strong id="latitude">--</strong>
+                        </div>
+                        <div>
+                            <span>LONGITUDE</span>
+                            <strong id="longitude">--</strong>
+                        </div>
+                    </div>
+
+                    <a id="mapLink" class="map-btn disabled" href="#" target="_blank" rel="noopener">
+                        ↗ View Location on Map
+                    </a>
+                    <p class="gps-note">Coordinates are simulated until GPS hardware is connected.</p>
+                </div>
+
+            </section>
+
+            <section class="panel chart-panel">
+                <div class="panel-heading chart-heading">
+                    <div>
+                        <h3>Sensor Analytics</h3>
+                        <p>Live sensor readings over time</p>
+                    </div>
+                    <select id="chartFilter" class="chart-select">
+                        <option value="both">Temperature + Humidity</option>
+                        <option value="temperature">Temperature</option>
+                        <option value="humidity">Humidity</option>
+                        <option value="gas">Gas Level</option>
+                    </select>
+                </div>
+                <div class="chart-container">
+                    <canvas id="sensorChart"></canvas>
+                </div>
+            </section>
+
+        </section>
+
+        <section class="page" id="monitoring">
+            <div class="page-intro">
+                <h2>Live Monitoring</h2>
+                <p>Control live updates and test emergency alerts.</p>
+            </div>
+
+            <div class="panel controls-panel">
+                <h3>Monitoring Controls</h3>
+                <p>Manage the live sensor data connection.</p>
+
+                <div class="control-row">
+                    <div>
+                        <strong>Automatic Monitoring</strong>
+                        <small>Fetch new sensor data every 2 seconds.</small>
+                    </div>
+                    <button id="pauseBtn" class="action-btn primary">Pause Monitoring</button>
+                </div>
+
+                <div class="control-row">
+                    <div>
+                        <strong>Manual Refresh</strong>
+                        <small>Get the latest sensor readings immediately.</small>
+                    </div>
+                    <button id="manualRefreshBtn" class="action-btn secondary">↻ Refresh Now</button>
+                </div>
+
+                <div class="control-row">
+                    <div>
+                        <strong>Emergency Test</strong>
+                        <small>Test the emergency alert using simulated data.</small>
+                    </div>
+                    <button id="emergencyTestBtn" class="action-btn danger">⚠ Test Emergency</button>
+                </div>
             </div>
 
             <div class="panel">
-                <h3>GPS Location</h3>
-                <p>Latitude: <strong id="latitude">--</strong></p>
-                <p>Longitude: <strong id="longitude">--</strong></p>
-                <p class="description">Simulated coordinates until GPS hardware is connected.</p>
+                <h3>Current Monitoring Information</h3>
+                <div class="info-grid">
+                    <div><span>Connection</span><strong id="monitorConnection">Checking...</strong></div>
+                    <div><span>Monitoring</span><strong id="monitorState">Active</strong></div>
+                    <div><span>Last Update</span><strong id="monitorUpdate">--</strong></div>
+                    <div><span>Data Source</span><strong id="monitorMode">Simulation</strong></div>
+                </div>
+            </div>
+
+            <div class="note-panel">
+                <strong>Important:</strong> Emergency test sends a test request to your backend.
+                It does not activate a real helmet or contact emergency services.
             </div>
         </section>
 
-        <section class="panel chart-panel">
-            <h3>Sensor Monitoring History</h3>
-            <canvas id="sensorChart"></canvas>
+        <section class="page" id="history">
+            <div class="page-intro history-heading">
+                <div>
+                    <h2>Sensor History</h2>
+                    <p>Previously recorded sensor readings.</p>
+                </div>
+                <button class="action-btn secondary" id="historyRefreshBtn">↻ Load History</button>
+            </div>
+
+            <div class="panel table-panel">
+                <div class="table-top">
+                    <h3>Recent Sensor Records</h3>
+                    <span id="historyCount">0 records</span>
+                </div>
+
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Temperature</th>
+                                <th>Humidity</th>
+                                <th>Gas</th>
+                                <th>Flame</th>
+                                <th>SOS</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyBody">
+                            <tr><td colspan="7" class="empty-cell">Click Load History to view records.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </section>
 
         <footer>
-            Smart Mine Worker Safety Helmet | Project Dashboard
+            <span>⛑ MineGuard Smart Mine Safety System</span>
+            <span>Cloud-based Worker Monitoring</span>
         </footer>
 
     </main>
+</div>
 
-    <script src="script.js"></script>
+<div id="toast" class="toast"></div>
+
+<script src="script.js"></script>
 </body>
 </html>
