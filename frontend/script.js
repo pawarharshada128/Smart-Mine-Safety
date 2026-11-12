@@ -1,5 +1,6 @@
 
-const API_URL = "http://127.0.0.1:5000/api/sensor-data";
+const API_URL =
+"https://smart-mine-safety-api.onrender.com/api/sensor-data";
 
 const temperatureValues = [];
 const humidityValues = [];
