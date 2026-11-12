@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Mine Safety Helmet</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <header class="header">
+        <div>
+            <h1>⛑ Smart Mine Safety</h1>
+            <p>Worker Monitoring Dashboard</p>
+        </div>
+        <div class="connection">
+            <span class="dot"></span>
+            <span id="connection">Connecting...</span>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section class="welcome">
+            <div>
+                <h2>Safety Monitoring Dashboard</h2>
+                <p>Live monitoring of mine worker conditions</p>
+            </div>
+            <div class="mode" id="mode">SIMULATION MODE</div>
+        </section>
+
+        <section id="alertBox" class="alert hidden">
+            ⚠ EMERGENCY ALERT DETECTED!
+        </section>
+
+        <section class="cards">
+
+            <div class="card">
+                <div class="card-icon">🌡️</div>
+                <h3>Temperature</h3>
+                <p class="value"><span id="temperature">--</span> <small>°C</small></p>
+                <p class="description">Worker environment</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">💧</div>
+                <h3>Humidity</h3>
+                <p class="value"><span id="humidity">--</span> <small>%</small></p>
+                <p class="description">Air humidity</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">☁️</div>
+                <h3>Gas Level</h3>
+                <p class="value" id="gas">--</p>
+                <p class="description">MQ sensor raw reading</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🔥</div>
+                <h3>Flame Sensor</h3>
+                <p class="value" id="flame">--</p>
+                <p class="description">Flame detection status</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🆘</div>
+                <h3>SOS Button</h3>
+                <p class="value" id="sos">--</p>
+                <p class="description">Worker emergency button</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">📳</div>
+                <h3>Acceleration</h3>
+                <p class="value"><span id="acceleration">--</span></p>
+                <p class="description">m/s²</p>
+            </div>
+
+        </section>
+
+        <section class="status-section">
+            <div class="panel">
+                <h3>Worker Safety Status</h3>
+                <div id="safetyStatus" class="status normal">
+                    SYSTEM NORMAL
+                </div>
+                <p id="lastUpdate">Waiting for sensor data...</p>
+            </div>
+
+            <div class="panel">
+                <h3>GPS Location</h3>
+                <p>Latitude: <strong id="latitude">--</strong></p>
+                <p>Longitude: <strong id="longitude">--</strong></p>
+                <p class="description">Simulated coordinates until GPS hardware is connected.</p>
+            </div>
+        </section>
+
+        <section class="panel chart-panel">
+            <h3>Sensor Monitoring History</h3>
+            <canvas id="sensorChart"></canvas>
+        </section>
+
+        <footer>
+            Smart Mine Worker Safety Helmet | Project Dashboard
+        </footer>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
